@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ChurchSystem.Common.Entities;
+using ChurchSystem.Web.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ChurchSystem.Common.Entities;
-using ChurchSystem.Web.Data;
 
 namespace ChurchSystem.Web.Controllers
 {
@@ -33,7 +31,7 @@ namespace ChurchSystem.Web.Controllers
                 return NotFound();
             }
 
-            var church = await _context.Churches
+            Church church = await _context.Churches
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (church == null)
             {
@@ -56,9 +54,30 @@ namespace ChurchSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(church);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+
+                    _context.Add(church);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, "There are a record with the same name.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
+
             }
             return View(church);
         }
@@ -71,7 +90,7 @@ namespace ChurchSystem.Web.Controllers
                 return NotFound();
             }
 
-            var church = await _context.Churches.FindAsync(id);
+            Church church = await _context.Churches.FindAsync(id);
             if (church == null)
             {
                 return NotFound();
@@ -82,7 +101,7 @@ namespace ChurchSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Church church)
+        public async Task<IActionResult> Edit(int id, Church church)
         {
             if (id != church.Id)
             {
@@ -95,22 +114,29 @@ namespace ChurchSystem.Web.Controllers
                 {
                     _context.Update(church);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException dbUpdateException)
                 {
-                    if (!ChurchExists(church.Id))
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        return NotFound();
+                        ModelState.AddModelError(string.Empty, "There are a record with the same name.");
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
             }
+
             return View(church);
         }
+
 
         public async Task<IActionResult> Delete(int? id)
         {
@@ -119,7 +145,7 @@ namespace ChurchSystem.Web.Controllers
                 return NotFound();
             }
 
-            var church = await _context.Churches
+            Church church = await _context.Churches
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (church == null)
             {
