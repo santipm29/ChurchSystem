@@ -19,7 +19,9 @@ namespace ChurchSystem.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Fields.ToListAsync());
+            return View(await _context.Fields
+                .Include(f => f.Districts)
+                .ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -29,14 +31,16 @@ namespace ChurchSystem.Web.Controllers
                 return NotFound();
             }
 
-            Field @field = await _context.Fields
+            Field field = await _context.Fields
+                .Include(f => f.Districts)
+                .ThenInclude(d => d.Churches)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (@field == null)
+            if (field == null)
             {
                 return NotFound();
             }
 
-            return View(@field);
+            return View(field);
         }
 
 
@@ -152,5 +156,66 @@ namespace ChurchSystem.Web.Controllers
         {
             return _context.Fields.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> AddDistrict(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Field field = await _context.Fields.FindAsync(id);
+            if (field == null)
+            {
+                return NotFound();
+            }
+
+            District model = new District { IdField = field.Id };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDistrict(District district)
+        {
+            if (ModelState.IsValid)
+            {
+                Field field = await _context.Fields
+                    .Include(f => f.Districts)
+                    .FirstOrDefaultAsync(f => f.Id == district.IdField);
+                if (field == null)
+                {
+                    return NotFound();
+                }
+
+                try
+                {
+                    district.Id = 0;
+                    field.Districts.Add(district);
+                    _context.Update(field);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction($"{nameof(Details)}",new {field.Id});
+
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError(string.Empty, "There are a record with the same name.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
+            }
+
+            return View(district);
+        }
+
     }
 }
