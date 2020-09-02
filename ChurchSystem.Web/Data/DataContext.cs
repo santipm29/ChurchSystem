@@ -13,6 +13,7 @@ namespace ChurchSystem.Web.Data
         public DbSet<Church> Churches { get; set; }
         public DbSet<Field> Fields { get; set; }
         public DbSet<District> Districts { get; set; }
+        public DbSet<Profession> Professions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -29,6 +30,9 @@ namespace ChurchSystem.Web.Data
                 .HasIndex(t => t.Name)
                 .IsUnique();
 
+            modelBuilder.Entity<Profession>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
         }
     }
 }
