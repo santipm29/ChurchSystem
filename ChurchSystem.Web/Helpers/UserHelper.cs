@@ -1,4 +1,5 @@
-﻿using ChurchSystem.Web.Data;
+﻿using ChurchSystem.Common.Enums;
+using ChurchSystem.Web.Data;
 using ChurchSystem.Web.Data.Entities;
 using ChurchSystem.Web.Models;
 using Microsoft.AspNetCore.Identity;
@@ -75,6 +76,46 @@ namespace ChurchSystem.Web.Helpers
         {
             await _signInManager.SignOutAsync();
         }
+
+        public async Task<User> AddUserAsync(AddUserViewModel model, Guid imageId, UserType userType)
+        {
+            User user = new User
+            {
+                Address = model.Address,
+                Document = model.Document,
+                Email = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ImageId = imageId,
+                PhoneNumber = model.PhoneNumber,
+                Church = await _context.Churches.FindAsync(model.ChurchId),
+                UserName = model.Username,
+                Profession = await _context.Professions.FindAsync(model.ProfessionId),
+                UserType = userType
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+
+            User newUser = await GetUserAsync(model.Username);
+            await AddUserToRoleAsync(newUser, user.UserType.ToString());
+            return newUser;
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(User user)
+        {
+            return await _userManager.UpdateAsync(user);
+        }
+
+
 
 
     }

@@ -1,4 +1,5 @@
-﻿using ChurchSystem.Web.Data.Entities;
+﻿using ChurchSystem.Common.Enums;
+using ChurchSystem.Web.Data.Entities;
 using ChurchSystem.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -22,6 +23,12 @@ namespace ChurchSystem.Web.Helpers
         Task<SignInResult> LoginAsync(LoginViewModel model);
 
         Task LogoutAsync();
+        Task<User> AddUserAsync(AddUserViewModel model, Guid imageId, UserType userType);
+
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
+
+        Task<IdentityResult> UpdateUserAsync(User user);
+
 
     }
 }
