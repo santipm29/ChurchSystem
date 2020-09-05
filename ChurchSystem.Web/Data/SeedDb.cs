@@ -25,7 +25,38 @@ namespace ChurchSystem.Web.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckFieldsAsync();
             await CheckRolesAsync();
+            await CheckProfessionsAsync();
             await CheckUserAsync("1010", "Santiago", "Patiño", "santipmartinez@outlook.com", "320 20 20", "Calle Villa", UserType.Admin);
+        }
+
+        private async Task CheckProfessionsAsync()
+        {
+            if (!_context.Professions.Any())
+            {
+                _context.Professions.Add(new Profession
+                {
+                    Name = "Ingeniero"
+                });
+                _context.Professions.Add(new Profession
+                {
+                    Name = "Contador"
+                });
+
+                _context.Professions.Add(new Profession
+                {
+                    Name = "Arquitecto"
+                });
+                _context.Professions.Add(new Profession
+                {
+                    Name = "Actor"
+                });
+                _context.Professions.Add(new Profession
+                {
+                    Name = "Médico"
+                });
+
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task CheckRolesAsync()
@@ -61,6 +92,10 @@ namespace ChurchSystem.Web.Data
 
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+
+                string token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
+
             }
 
             return user;
