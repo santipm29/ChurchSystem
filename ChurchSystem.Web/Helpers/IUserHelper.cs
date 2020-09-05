@@ -1,4 +1,5 @@
 ﻿using ChurchSystem.Web.Data.Entities;
+using ChurchSystem.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
@@ -17,5 +18,10 @@ namespace ChurchSystem.Web.Helpers
 
         Task AddUserToRoleAsync(User user, string roleName);
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+
+        Task LogoutAsync();
+
     }
 }

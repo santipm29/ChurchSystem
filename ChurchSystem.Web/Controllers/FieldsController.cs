@@ -1,5 +1,6 @@
 ﻿using ChurchSystem.Common.Entities;
 using ChurchSystem.Web.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ChurchSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FieldsController : Controller
     {
         private readonly DataContext _context;

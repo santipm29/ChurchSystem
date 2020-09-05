@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ChurchSystem.Common.Entities;
+using ChurchSystem.Web.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ChurchSystem.Common.Entities;
-using ChurchSystem.Web.Data;
 
 namespace ChurchSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProfessionsController : Controller
     {
         private readonly DataContext _context;
@@ -31,7 +30,7 @@ namespace ChurchSystem.Web.Controllers
                 return NotFound();
             }
 
-            var profession = await _context.Professions
+            Profession profession = await _context.Professions
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (profession == null)
             {
@@ -67,7 +66,7 @@ namespace ChurchSystem.Web.Controllers
                 return NotFound();
             }
 
-            var profession = await _context.Professions.FindAsync(id);
+            Profession profession = await _context.Professions.FindAsync(id);
             if (profession == null)
             {
                 return NotFound();
@@ -114,7 +113,7 @@ namespace ChurchSystem.Web.Controllers
                 return NotFound();
             }
 
-            var profession = await _context.Professions
+            Profession profession = await _context.Professions
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (profession == null)
             {

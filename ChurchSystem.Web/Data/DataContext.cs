@@ -20,18 +20,24 @@ namespace ChurchSystem.Web.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Church>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
+            modelBuilder.Entity<Field>(fie =>
+            {
+                fie.HasIndex("Name").IsUnique();
+                fie.HasMany(c => c.Districts).WithOne(d => d.Field).OnDelete(DeleteBehavior.Cascade);
+            });
 
-            modelBuilder.Entity<Field>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
 
-            modelBuilder.Entity<District>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
+            modelBuilder.Entity<District>(dis =>
+            {
+                dis.HasIndex("Name", "FieldId").IsUnique();
+                dis.HasOne(c => c.Field).WithMany(d => d.Districts).OnDelete(DeleteBehavior.Cascade);
+            });
 
+            modelBuilder.Entity<Church>(chu =>
+            {
+                chu.HasIndex("Name", "DistrictId").IsUnique();
+                chu.HasOne(c => c.District).WithMany(d => d.Churches).OnDelete(DeleteBehavior.Cascade);
+            });
             modelBuilder.Entity<Profession>()
                 .HasIndex(t => t.Name)
                 .IsUnique();
