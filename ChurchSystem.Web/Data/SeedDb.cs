@@ -27,6 +27,7 @@ namespace ChurchSystem.Web.Data
             await CheckRolesAsync();
             await CheckProfessionsAsync();
             await CheckUserAsync("1010", "Santiago", "Patiño", "santipmartinez@outlook.com", "320 20 20", "Calle Villa", UserType.Admin);
+            await CheckUserAsync("1020", "Isabel", "Martinez", "isabelmarianap@gmail.com", "315 40 20", "Calle Imaginaria", UserType.User);
         }
 
         private async Task CheckProfessionsAsync()

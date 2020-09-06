@@ -30,13 +30,15 @@ namespace ChurchSystem.Web.Data.Entities
 
         [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://onsalezulu.azurewebsites.net/images/notimage.png"
+            ? $"https://churchblob.blob.core.windows.net/images/notimage.png"
             : $"https://churchblob.blob.core.windows.net/users/{ImageId}";
 
         [Display(Name = "User Type")]
         public UserType UserType { get; set; }
 
         public Church Church { get; set; }
+
+        public int ChurchId { get; set; }
 
         public Profession Profession { get; set; }
 

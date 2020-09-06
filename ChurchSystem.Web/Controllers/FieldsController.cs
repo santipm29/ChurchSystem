@@ -1,9 +1,11 @@
 ﻿using ChurchSystem.Common.Entities;
 using ChurchSystem.Web.Data;
+using ChurchSystem.Web.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -312,6 +314,20 @@ namespace ChurchSystem.Web.Controllers
             Field field = await _context.Fields.FirstOrDefaultAsync(c => c.Districts.FirstOrDefault(d => d.Id == district.Id) != null);
             district.IdField = field.Id;
             return View(district);
+        }
+
+        public async Task<IActionResult> DetailsChurch(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+ 
+            var user = await _context.Users.Where(u => u.ChurchId == id)
+                .Include(u => u.Church)
+                .ToListAsync();
+
+            return View(user);
         }
 
 
