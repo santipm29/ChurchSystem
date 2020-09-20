@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ChurchSystem.Common.Entities
+namespace ChurchSystem.Web.Data.Entities
 {
-    public class Church
+    public class Profession
     {
         public int Id { get; set; }
 
@@ -14,11 +13,10 @@ namespace ChurchSystem.Common.Entities
         public string Name { get; set; }
 
         [JsonIgnore]
-        [NotMapped]
-        public int IdDistrict { get; set; }
+        public ICollection<User> Users { get; set; }
 
-        [JsonIgnore]
-        public District District { get; set; }
+        [Display(Name = "# Users")]
+        public int UsersNumber => Users == null ? 0 : Users.Count;
 
     }
 }

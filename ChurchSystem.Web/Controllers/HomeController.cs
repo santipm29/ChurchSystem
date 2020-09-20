@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ChurchSystem.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using ChurchSystem.Web.Models;
+using System.Diagnostics;
 
 namespace ChurchSystem.Web.Controllers
 {

@@ -1,5 +1,6 @@
-﻿using ChurchSystem.Common.Entities;
+﻿
 using ChurchSystem.Web.Data;
+using ChurchSystem.Web.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

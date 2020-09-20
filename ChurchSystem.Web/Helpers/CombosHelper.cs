@@ -1,5 +1,5 @@
-﻿using ChurchSystem.Common.Entities;
-using ChurchSystem.Web.Data;
+﻿using ChurchSystem.Web.Data;
+using ChurchSystem.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

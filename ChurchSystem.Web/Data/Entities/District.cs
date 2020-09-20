@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
-namespace ChurchSystem.Common.Entities
+namespace ChurchSystem.Web.Data.Entities
 {
     public class District
     {
@@ -23,5 +24,9 @@ namespace ChurchSystem.Common.Entities
 
         [JsonIgnore]
         public Field Field { get; set; }
+
+        [Display(Name = "Number Users")]
+        public int UsersNumber => Churches == null ? 0 : Churches.Sum(c => c.UsersNumber);
+
     }
 }

@@ -19,7 +19,28 @@ namespace ChurchSystem.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ChurchSystem.Common.Entities.Church", b =>
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Assistance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsPresent");
+
+                    b.Property<int?>("MeetingId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MeetingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Assistances");
+                });
+
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Church", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +63,7 @@ namespace ChurchSystem.Web.Migrations
                     b.ToTable("Churches");
                 });
 
-            modelBuilder.Entity("ChurchSystem.Common.Entities.District", b =>
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.District", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +86,7 @@ namespace ChurchSystem.Web.Migrations
                     b.ToTable("Districts");
                 });
 
-            modelBuilder.Entity("ChurchSystem.Common.Entities.Field", b =>
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Field", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,7 +104,24 @@ namespace ChurchSystem.Web.Migrations
                     b.ToTable("Fields");
                 });
 
-            modelBuilder.Entity("ChurchSystem.Common.Entities.Profession", b =>
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Meeting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ChurchId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChurchId");
+
+                    b.ToTable("Meetings");
+                });
+
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Profession", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,7 +149,7 @@ namespace ChurchSystem.Web.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("ChurchId");
+                    b.Property<int>("ChurchId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -289,30 +327,49 @@ namespace ChurchSystem.Web.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ChurchSystem.Common.Entities.Church", b =>
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Assistance", b =>
                 {
-                    b.HasOne("ChurchSystem.Common.Entities.District", "District")
+                    b.HasOne("ChurchSystem.Web.Data.Entities.Meeting", "Meeting")
+                        .WithMany("Assistances")
+                        .HasForeignKey("MeetingId");
+
+                    b.HasOne("ChurchSystem.Web.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Church", b =>
+                {
+                    b.HasOne("ChurchSystem.Web.Data.Entities.District", "District")
                         .WithMany("Churches")
                         .HasForeignKey("DistrictId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ChurchSystem.Common.Entities.District", b =>
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.District", b =>
                 {
-                    b.HasOne("ChurchSystem.Common.Entities.Field", "Field")
+                    b.HasOne("ChurchSystem.Web.Data.Entities.Field", "Field")
                         .WithMany("Districts")
                         .HasForeignKey("FieldId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Meeting", b =>
+                {
+                    b.HasOne("ChurchSystem.Web.Data.Entities.Church")
+                        .WithMany("Meetings")
+                        .HasForeignKey("ChurchId");
+                });
+
             modelBuilder.Entity("ChurchSystem.Web.Data.Entities.User", b =>
                 {
-                    b.HasOne("ChurchSystem.Common.Entities.Church", "Church")
-                        .WithMany()
-                        .HasForeignKey("ChurchId");
+                    b.HasOne("ChurchSystem.Web.Data.Entities.Church", "Church")
+                        .WithMany("Users")
+                        .HasForeignKey("ChurchId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ChurchSystem.Common.Entities.Profession", "Profession")
-                        .WithMany()
+                    b.HasOne("ChurchSystem.Web.Data.Entities.Profession", "Profession")
+                        .WithMany("Users")
                         .HasForeignKey("ProfessionId");
                 });
 

@@ -1,5 +1,4 @@
-﻿using ChurchSystem.Common.Entities;
-using ChurchSystem.Common.Enums;
+﻿using ChurchSystem.Common.Enums;
 using ChurchSystem.Common.Responses;
 using ChurchSystem.Web.Data;
 using ChurchSystem.Web.Data.Entities;

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
-namespace ChurchSystem.Common.Entities
+namespace ChurchSystem.Web.Data.Entities
 {
     public class Field
     {
@@ -15,6 +16,13 @@ namespace ChurchSystem.Common.Entities
         public ICollection<District> Districts { get; set; }
         [DisplayName("Districts Number")]
         public int DistrictsNumber => Districts == null ? 0 : Districts.Count;
+
+        [Display(Name = "Number Churches")]
+        public int ChurchesNumber => Districts == null ? 0 : Districts.Sum(d => d.ChurchesNumber);
+
+        [Display(Name = "Number Users")]
+        public int UsersNumber => Districts == null ? 0 : Districts.Sum(d => d.UsersNumber);
+
 
     }
 }

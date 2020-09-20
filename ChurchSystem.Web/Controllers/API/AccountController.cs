@@ -99,7 +99,7 @@ namespace ChurchSystem.Web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            var user = await _userHelper.GetUserAsync(request.Email);
+            User user = await _userHelper.GetUserAsync(request.Email);
             if (user == null)
             {
                 return BadRequest("User not found.");
@@ -110,13 +110,13 @@ namespace ChurchSystem.Web.Controllers.API
             user.Address = request.Address;
             user.PhoneNumber = request.PhoneNumber;
             user.Document = request.Document;
-            var response = await _userHelper.UpdateUserAsync(user);
+            Microsoft.AspNetCore.Identity.IdentityResult response = await _userHelper.UpdateUserAsync(user);
             if (!response.Succeeded)
             {
                 return BadRequest(response.Errors.FirstOrDefault().Description);
             }
 
-            var updatedUser = await _userHelper.GetUserAsync(request.Email);
+            User updatedUser = await _userHelper.GetUserAsync(request.Email);
             return Ok(updatedUser);
 
         }

@@ -1,5 +1,4 @@
-﻿using ChurchSystem.Common.Entities;
-using ChurchSystem.Web.Data.Entities;
+﻿using ChurchSystem.Web.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +15,9 @@ namespace ChurchSystem.Web.Data
         public DbSet<Field> Fields { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Profession> Professions { get; set; }
+
+        public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<Assistance> Assistances { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

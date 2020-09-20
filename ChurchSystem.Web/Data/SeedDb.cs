@@ -1,4 +1,4 @@
-﻿using ChurchSystem.Common.Entities;
+﻿
 using ChurchSystem.Common.Enums;
 using ChurchSystem.Web.Data.Entities;
 using ChurchSystem.Web.Helpers;

@@ -1,7 +1,8 @@
-﻿using ChurchSystem.Common.Entities;
+﻿
 using ChurchSystem.Common.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ChurchSystem.Web.Data.Entities
@@ -42,6 +43,7 @@ namespace ChurchSystem.Web.Data.Entities
 
         public Profession Profession { get; set; }
 
+        private ICollection<Assistance> Assistances { get; set; }
         [Display(Name = "User")]
         public string FullName => $"{FirstName} {LastName}";
 
