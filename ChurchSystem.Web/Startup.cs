@@ -1,4 +1,5 @@
-﻿using ChurchSystem.Web.Data;
+﻿using ChurchSystem.Common.Services;
+using ChurchSystem.Web.Data;
 using ChurchSystem.Web.Data.Entities;
 using ChurchSystem.Web.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -75,6 +76,7 @@ namespace ChurchSystem.Web
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
+            services.AddScoped<IApiService, ApiService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

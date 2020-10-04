@@ -1,4 +1,4 @@
-﻿using ChurchSystem.Common.Entities;
+﻿using ChurchSystem.Web.Data.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

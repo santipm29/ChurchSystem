@@ -10,8 +10,8 @@ namespace ChurchSystem.Web.Helpers
 {
     public class BlobHelper : IBlobHelper
     {
-
         private readonly CloudBlobClient _blobClient;
+
         public BlobHelper(IConfiguration configuration)
         {
             string keys = configuration["Blob:ConnectionString"];
@@ -37,6 +37,11 @@ namespace ChurchSystem.Web.Helpers
             return await UploadStreamAsync(stream, containerName);
         }
 
+        public async Task<Guid> UploadBlobAsync(Stream stream, string containerName)
+        {
+            return await UploadStreamAsync(stream, containerName);
+        }
+
         private async Task<Guid> UploadStreamAsync(Stream stream, string containerName)
         {
             Guid name = Guid.NewGuid();
@@ -45,6 +50,7 @@ namespace ChurchSystem.Web.Helpers
             await blockBlob.UploadFromStreamAsync(stream);
             return name;
         }
-
     }
+
 }
+

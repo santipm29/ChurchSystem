@@ -1,9 +1,12 @@
 ﻿
 using ChurchSystem.Common.Enums;
+using ChurchSystem.Common.Models;
+using ChurchSystem.Common.Services;
 using ChurchSystem.Web.Data.Entities;
 using ChurchSystem.Web.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,10 +17,16 @@ namespace ChurchSystem.Web.Data
 
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
-        public SeedDb(DataContext context, IUserHelper userHelper)
+        private readonly IBlobHelper _blobHelper;
+        private readonly IApiService _apiService;
+        private readonly Random _random;
+        public SeedDb(DataContext context, IUserHelper userHelper, IBlobHelper blobHelper, IApiService apiService)
         {
             _context = context;
             _userHelper = userHelper;
+            _blobHelper = blobHelper;
+            _apiService = apiService;
+            _random = new Random();
         }
 
         public async Task SeedAsync()
@@ -26,8 +35,7 @@ namespace ChurchSystem.Web.Data
             await CheckFieldsAsync();
             await CheckRolesAsync();
             await CheckProfessionsAsync();
-            await CheckUserAsync("1010", "Santiago", "Patiño", "santipmartinez@outlook.com", "320 20 20", "Calle Villa", UserType.Admin);
-            await CheckUserAsync("1020", "Isabel", "Martinez", "isabelmarianap@gmail.com", "315 40 20", "Calle Imaginaria", UserType.User);
+            await CheckUsersAsync();
         }
 
         private async Task CheckProfessionsAsync()
@@ -66,37 +74,73 @@ namespace ChurchSystem.Web.Data
             await _userHelper.CheckRoleAsync(UserType.User.ToString());
         }
 
+        private async Task CheckUsersAsync()
+        {
+            if (!_context.Users.Any())
+            {
+                await CheckAdminsAsync();
+                await CheckMembersAsync();
+            }
+        }
+
+        private async Task CheckMembersAsync()
+        {
+            for (int i = 1; i <= 50; i++)
+            {
+                await CheckUserAsync($"200{i}", $"member{i}@yopmail.com", UserType.User);
+            }
+        }
+
+        private async Task CheckAdminsAsync()
+        {
+            await CheckUserAsync("1001", "admin1@yopmail.com", UserType.Admin);
+        }
+
         private async Task<User> CheckUserAsync(
             string document,
-            string firstName,
-            string lastName,
             string email,
-            string phone,
-            string address,
             UserType userType)
         {
+            RandomUsers randomUsers;
+
+            do
+            {
+                randomUsers = await _apiService.GetRandomUser("https://randomuser.me", "api");
+            } while (randomUsers == null);
+
+            Guid imageId = Guid.Empty;
+            RandomUser randomUser = randomUsers.Results.FirstOrDefault();
+            string imageUrl = randomUser.Picture.Large.ToString().Substring(22);
+            Stream stream = await _apiService.GetPictureAsync("https://randomuser.me", imageUrl);
+            if (stream != null)
+            {
+                imageId = await _blobHelper.UploadBlobAsync(stream, "users");
+            }
+
+            int churchId = _random.Next(1, _context.Churches.Count());
+            int profesionId = _random.Next(1, _context.Professions.Count());
             User user = await _userHelper.GetUserAsync(email);
             if (user == null)
             {
                 user = new User
                 {
-                    FirstName = firstName,
-                    LastName = lastName,
+                    FirstName = randomUser.Name.First,
+                    LastName = randomUser.Name.Last,
                     Email = email,
                     UserName = email,
-                    PhoneNumber = phone,
-                    Address = address,
+                    PhoneNumber = randomUser.Cell,
+                    Address = $"{randomUser.Location.Street.Number}, {randomUser.Location.Street.Name}",
                     Document = document,
-                    Church = _context.Churches.FirstOrDefault(),
-                    UserType = userType
+                    UserType = userType,
+                    Profession = await _context.Professions.FindAsync(profesionId),
+                    Church = await _context.Churches.FindAsync(churchId),
+                    ImageId = imageId
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, userType.ToString());
-
                 string token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
                 await _userHelper.ConfirmEmailAsync(user, token);
-
             }
 
             return user;

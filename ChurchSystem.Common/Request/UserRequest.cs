@@ -28,5 +28,10 @@ namespace ChurchSystem.Common.Request
 
         public string PhoneNumber { get; set; }
 
+        [Required]
+        public int ChurchId { get; set; }
+
+        public byte[] ImageArray { get; set; }
+
     }
 }
