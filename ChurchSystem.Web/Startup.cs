@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using Vereyon.Web;
 
 namespace ChurchSystem.Web
 {
@@ -77,6 +78,7 @@ namespace ChurchSystem.Web
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
             services.AddScoped<IApiService, ApiService>();
+            services.AddFlashMessage();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -112,7 +114,7 @@ namespace ChurchSystem.Web
         {
             public static void ReWriteRequests(RewriteContext context)
             {
-                var request = context.HttpContext.Request;
+                HttpRequest request = context.HttpContext.Request;
 
                 if (request.Path.Value.Contains("%2F", StringComparison.OrdinalIgnoreCase))
                 {

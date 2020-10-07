@@ -72,6 +72,7 @@ namespace ChurchSystem.Web.Data
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
             await _userHelper.CheckRoleAsync(UserType.User.ToString());
+            await _userHelper.CheckRoleAsync(UserType.Teacher.ToString());
         }
 
         private async Task CheckUsersAsync()
@@ -79,6 +80,7 @@ namespace ChurchSystem.Web.Data
             if (!_context.Users.Any())
             {
                 await CheckAdminsAsync();
+                await CheckTeachersAsync();
                 await CheckMembersAsync();
             }
         }
@@ -88,6 +90,13 @@ namespace ChurchSystem.Web.Data
             for (int i = 1; i <= 50; i++)
             {
                 await CheckUserAsync($"200{i}", $"member{i}@yopmail.com", UserType.User);
+            }
+        }
+        private async Task CheckTeachersAsync()
+        {
+            for (int i = 1; i <= 15; i++)
+            {
+                await CheckUserAsync($"200{i}", $"teacher{i}@yopmail.com", UserType.Teacher);
             }
         }
 

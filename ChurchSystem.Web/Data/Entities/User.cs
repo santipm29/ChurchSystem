@@ -39,8 +39,6 @@ namespace ChurchSystem.Web.Data.Entities
 
         public Church Church { get; set; }
 
-        public int ChurchId { get; set; }
-
         public Profession Profession { get; set; }
 
         private ICollection<Assistance> Assistances { get; set; }

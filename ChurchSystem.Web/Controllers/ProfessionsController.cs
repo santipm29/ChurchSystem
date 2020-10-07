@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Vereyon.Web;
 
 namespace ChurchSystem.Web.Controllers
 {
@@ -13,10 +14,15 @@ namespace ChurchSystem.Web.Controllers
     public class ProfessionsController : Controller
     {
         private readonly DataContext _context;
+        private readonly IFlashMessage _flashMessage;
 
-        public ProfessionsController(DataContext context)
+        public ProfessionsController(
+            DataContext context,
+            IFlashMessage flashMessage
+        )
         {
             _context = context;
+            _flashMessage = flashMessage;
         }
 
         public async Task<IActionResult> Index()
@@ -120,9 +126,16 @@ namespace ChurchSystem.Web.Controllers
             {
                 return NotFound();
             }
-
-            _context.Professions.Remove(profession);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Professions.Remove(profession);
+                await _context.SaveChangesAsync();
+                _flashMessage.Confirmation("The profession was deleted.");
+            }
+            catch
+            {
+                _flashMessage.Danger("The profession can't be deleted because it has related records.");
+            }
             return RedirectToAction(nameof(Index));
         }
 

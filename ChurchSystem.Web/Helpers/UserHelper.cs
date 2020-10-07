@@ -5,6 +5,7 @@ using ChurchSystem.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ChurchSystem.Web.Helpers
@@ -139,8 +140,6 @@ namespace ChurchSystem.Web.Helpers
         {
             return await _signInManager.CheckPasswordSignInAsync(user, password, false);
         }
-
-
 
     }
 }
