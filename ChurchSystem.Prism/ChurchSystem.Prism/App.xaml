@@ -3,9 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              x:Class="ChurchSystem.Prism.App">
-  <Application.Resources>
-
-    <!-- Application resource dictionary -->
-
-  </Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary>
+            <x:String x:Key="UrlAPI">https://churchsystemweb.azurewebsites.net</x:String>
+            <!-- Colors -->
+            <Color x:Key="ColorBackground">#F2F2F2</Color>
+            <Color x:Key="ColorPrimary">#0487D9</Color>
+            <Color x:Key="ColorSecondary">#024873</Color>
+            <Color x:Key="ColorDanger">#EA2027</Color>
+            <Color x:Key="ColorAccent">#EA2027</Color>
+            <Color x:Key="ColorFont">#0D0D0D</Color>
+            <Color x:Key="ColorFontInverse">#D9D9D9</Color>
+        </ResourceDictionary>
+    </Application.Resources>
 </prism:PrismApplication>

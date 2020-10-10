@@ -1,4 +1,5 @@
-﻿using ChurchSystem.Common.Enums;
+﻿using ChurchSystem.Common.Entities;
+using ChurchSystem.Common.Enums;
 using System;
 
 namespace ChurchSystem.Common.Responses
@@ -26,6 +27,8 @@ namespace ChurchSystem.Common.Responses
             : $"https://churchblob.blob.core.windows.net/users/{ImageId}";
 
         public UserType UserType { get; set; }
+
+        public Church Church { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 

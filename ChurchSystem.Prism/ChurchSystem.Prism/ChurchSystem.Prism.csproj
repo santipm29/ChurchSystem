@@ -15,4 +15,19 @@
     <ProjectReference Include="..\..\ChurchSystem.Common\ChurchSystem.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resourcers\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resourcers\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
