@@ -4,14 +4,16 @@ using ChurchSystem.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChurchSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201007144250_AddAllEntities")]
+    partial class AddAllEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +71,7 @@ namespace ChurchSystem.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FieldId");
+                    b.Property<int?>("FieldId");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -80,7 +82,8 @@ namespace ChurchSystem.Web.Migrations
                     b.HasIndex("FieldId");
 
                     b.HasIndex("Name", "FieldId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[FieldId] IS NOT NULL");
 
                     b.ToTable("Districts");
                 });
@@ -109,7 +112,7 @@ namespace ChurchSystem.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ChurchId");
+                    b.Property<int?>("ChurchId");
 
                     b.Property<DateTime>("Date");
 
@@ -355,10 +358,9 @@ namespace ChurchSystem.Web.Migrations
 
             modelBuilder.Entity("ChurchSystem.Web.Data.Entities.Meeting", b =>
                 {
-                    b.HasOne("ChurchSystem.Web.Data.Entities.Church", "Church")
+                    b.HasOne("ChurchSystem.Web.Data.Entities.Church")
                         .WithMany("Meetings")
-                        .HasForeignKey("ChurchId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ChurchId");
                 });
 
             modelBuilder.Entity("ChurchSystem.Web.Data.Entities.User", b =>

@@ -41,6 +41,10 @@
                     {
                         <li><a asp-area="" asp-controller="Members" asp-action="Index">Members</a></li>
                     }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Teacher") || User.IsInRole("User"))
+                    {
+                        <li><a asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a></li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)

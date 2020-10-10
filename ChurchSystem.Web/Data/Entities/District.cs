@@ -23,6 +23,7 @@ namespace ChurchSystem.Web.Data.Entities
         public int IdField { get; set; }
 
         [JsonIgnore]
+        [Required]
         public Field Field { get; set; }
 
         [Display(Name = "Number Users")]

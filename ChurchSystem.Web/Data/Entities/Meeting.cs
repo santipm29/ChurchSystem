@@ -16,6 +16,10 @@ namespace ChurchSystem.Web.Data.Entities
 
         public ICollection<Assistance> Assistances { get; set; }
 
+        [Required]
+        public Church Church { get; set; }
+
+
         [Display(Name = "Number Assistances")]
         public int AssistancesNumber => Assistances == null ? 0 : Assistances.Count;
 

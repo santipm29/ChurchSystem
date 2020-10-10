@@ -41,6 +41,7 @@ namespace ChurchSystem.Web.Data.Entities
 
         public Profession Profession { get; set; }
 
+        [Required]
         private ICollection<Assistance> Assistances { get; set; }
         [Display(Name = "User")]
         public string FullName => $"{FirstName} {LastName}";
