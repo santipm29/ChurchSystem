@@ -302,13 +302,13 @@ namespace ChurchSystem.Web.Controllers
 
             return View(model);
         }
-        public IActionResult RecoverPassword()
+        public IActionResult RecoverPasswordMVC()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        public async Task<IActionResult> RecoverPasswordMVC(RecoverPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {

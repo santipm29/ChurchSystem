@@ -22,11 +22,17 @@ namespace ChurchSystem.Common.Request
         public string LastName { get; set; }
 
         [MaxLength(100)]
+        [Required]
         public string Address { get; set; }
 
         public string Email { get; set; }
+        [Required]
+        public string Phone { get; set; }
 
-        public string PhoneNumber { get; set; }
+        [Required]
+        [StringLength(20, MinimumLength = 6)]
+        public string Password { get; set; }
+
 
         [Required]
         public int ChurchId { get; set; }
