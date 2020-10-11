@@ -13,6 +13,10 @@ namespace ChurchSystem.Common.Services
 
         Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, TokenRequest request);
 
+        Task<Response> GetUserByEmail(string urlBase, string servicePrefix, string controller, string tokenType, string accessToken, EmailRequest request);
+
+        Task<Response> RecoverPasswordAsync(string urlBase, string servicePrefix, string controller, EmailRequest emailRequest);
+
         Task<RandomUsers> GetRandomUser(string urlBase, string servicePrefix);
 
         Task<Stream> GetPictureAsync(string urlBase, string servicePrefix);

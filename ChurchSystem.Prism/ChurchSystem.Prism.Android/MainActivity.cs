@@ -4,6 +4,7 @@ using Android.OS;
 using Prism;
 using Prism.Ioc;
 
+
 namespace ChurchSystem.Prism.Droid
 {
     [Activity(Theme = "@style/MainTheme",

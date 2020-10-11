@@ -123,4 +123,37 @@
   <data name="Error" xml:space="preserve">
     <value>Errore</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="EmailPlaceHolder" xml:space="preserve">
+    <value>Inserisci la tua email...</value>
+  </data>
+  <data name="EmailError" xml:space="preserve">
+    <value>Devi inserire un'e-mail valida.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parola d'ordine</value>
+  </data>
+  <data name="PasswordPlaceHolder" xml:space="preserve">
+    <value>Inserisci la tua password...</value>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>Devi inserire la tua password.</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Hai dimenticato la password?</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registra nuovo utilizzo</value>
+  </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>Email o password sbagliate</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Disconnettersi</value>
+  </data>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>controllare la connessione internet</value>
+  </data>
 </root>
