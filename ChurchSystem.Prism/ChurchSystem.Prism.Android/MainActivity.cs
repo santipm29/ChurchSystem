@@ -4,7 +4,6 @@ using Android.OS;
 using Prism;
 using Prism.Ioc;
 
-
 namespace ChurchSystem.Prism.Droid
 {
     [Activity(Theme = "@style/MainTheme",
@@ -17,7 +16,6 @@ namespace ChurchSystem.Prism.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             LoadApplication(new App(new AndroidInitializer()));

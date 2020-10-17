@@ -63,6 +63,12 @@ namespace ChurchSystem.Prism.ViewModels
                 },
                 new Menu
                 {
+                    Icon = "ic_person_plus",
+                    PageName = $"{nameof(RegisterPage)}",
+                    Title = "Register User"
+                },
+                new Menu
+                {
                     Icon = "ic_exit_to_app",
                     PageName = $"{nameof(LoginPage)}",
                     Title = Settings.IsLogin ? "Logout" : "Login"

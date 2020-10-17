@@ -6,6 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <x:String x:Key="UrlAPI">https://churchsystemweb.azurewebsites.net</x:String>
+            <x:String x:Key="UrlNoImage">https://churchblob.blob.core.windows.net/images/notimage.png</x:String>
+
             <!-- Colors -->
             <Color x:Key="ColorBackground">#F2F2F2</Color>
             <Color x:Key="ColorPrimary">#0487D9</Color>

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using ChurchSystem.Common.Responses;
 using ChurchSystem.Common.Helpers;
 using System;
+using Syncfusion.Licensing;
 
 namespace ChurchSystem.Prism
 {
@@ -23,6 +24,7 @@ namespace ChurchSystem.Prism
 
         protected override async void OnInitialized()
         {
+            SyncfusionLicenseProvider.RegisterLicense("MzM3MDM1QDMxMzgyZTMzMmUzMExWRWVPeXg1UnNLSkJvdFFwSVB5QlRsNVBva1VWK0NHb2h6QzhUcHFWd0E9");
             InitializeComponent();
             var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
             if (Settings.IsLogin && token?.Expiration > DateTime.Now)
@@ -47,6 +49,7 @@ namespace ChurchSystem.Prism
             containerRegistry.RegisterForNavigation<MembersPage, MembersPageViewModel>();
             containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
             containerRegistry.RegisterForNavigation<MeetingPage, MeetingPageViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
         }
     }
 }

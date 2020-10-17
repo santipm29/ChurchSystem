@@ -17,6 +17,8 @@ namespace ChurchSystem.Common.Services
 
         Task<Response> RecoverPasswordAsync(string urlBase, string servicePrefix, string controller, EmailRequest emailRequest);
 
+        Task<Response> RegisterUserAsync(string urlBase, string servicePrefix, string controller, UserRequest userRequest);
+
         Task<RandomUsers> GetRandomUser(string urlBase, string servicePrefix);
 
         Task<Stream> GetPictureAsync(string urlBase, string servicePrefix);

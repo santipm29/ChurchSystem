@@ -156,4 +156,107 @@
   <data name="ConnectionError" xml:space="preserve">
     <value>controllare la connessione internet</value>
   </data>
+
+  <data name="Document" xml:space="preserve">
+    <value>Documento</value>
+  </data>
+  <data name="DocumentPlaceHolder" xml:space="preserve">
+    <value>Inserisci il tuo documento...</value>
+  </data>
+  <data name="DocumentError" xml:space="preserve">
+    <value>Devi inserire un documento.</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="FirstNamePlaceHolder" xml:space="preserve">
+    <value>Inserisci i tuoi nomi...</value>
+  </data>
+  <data name="FirstNameError" xml:space="preserve">
+    <value>Devi inserire almeno un nome.</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Cognomi</value>
+  </data>
+  <data name="LastNamePlaceHolder" xml:space="preserve">
+    <value>Inserisci il tuo cognome...</value>
+  </data>
+  <data name="LastNameError" xml:space="preserve">
+    <value>Devi inserire almeno un cognome.</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Direzione</value>
+  </data>
+  <data name="AddressPlaceHolder" xml:space="preserve">
+    <value>Inserisci il tuo indirizzo...</value>
+  </data>
+  <data name="AddressError" xml:space="preserve">
+    <value>Devi inserire il tuo indirizzo.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefono</value>
+  </data>
+  <data name="PhoneError" xml:space="preserve">
+    <value>Inserisci il tuo telefono...</value>
+  </data>
+  <data name="PhonePlaceHolder" xml:space="preserve">
+    <value>Devi inserire il tuo telefono.</value>
+  </data>
+  <data name="Church" xml:space="preserve">
+    <value>Chiesa</value>
+  </data>
+  <data name="ChurchError" xml:space="preserve">
+    <value>Devi selezionare una chiesa.</value>
+  </data>
+  <data name="ChurchPlaceHolder" xml:space="preserve">
+    <value>Seleziona una chiesa...</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>distretto</value>
+  </data>
+  <data name="DistrictError" xml:space="preserve">
+    <value>Devi selezionare un distretto.</value>
+  </data>
+  <data name="DistrictPlaceHolder" xml:space="preserve">
+    <value>Seleziona un distretto...</value>
+  </data>
+  <data name="Field" xml:space="preserve">
+    <value>Campagna</value>
+  </data>
+  <data name="FieldError" xml:space="preserve">
+    <value>Devi selezionare un campagna.</value>
+  </data>
+  <data name="FieldPlaceHolder" xml:space="preserve">
+    <value>Seleziona un campagna...</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Conferma password</value>
+  </data>
+  <data name="PasswordConfirmError1" xml:space="preserve">
+    <value>Devi inserire una password di conferma.</value>
+  </data>
+  <data name="PasswordConfirmError2" xml:space="preserve">
+    <value>Password e conferma non corrispondono.</value>
+  </data>
+  <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
+    <value>Immettere una conferma della password...</value>
+  </data>
+  <data name="Error001" xml:space="preserve">
+    <value>Utente non trovato.</value>
+  </data>
+  <data name="Error002" xml:space="preserve">
+    <value>Prodotto non trovato.</value>
+  </data>
+  <data name="Error003" xml:space="preserve">
+    <value>Un utente con quell'email è già registrato.</value>
+  </data>
+  <data name="Error004" xml:space="preserve">
+    <value>Città non trovata.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>va bene</value>
+  </data>
+  <data name="RegisterMessge" xml:space="preserve">
+    <value>Il tuo utente è stato registrato con successo, è stata inviata un'e-mail per confermare l'account utente.</value>
+  </data>
 </root>
