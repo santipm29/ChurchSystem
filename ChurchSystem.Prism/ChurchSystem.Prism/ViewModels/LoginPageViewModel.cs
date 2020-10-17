@@ -59,7 +59,7 @@ namespace ChurchSystem.Prism.ViewModels
 
         private async void ForgotPasswordAsync()
         {
-            await _navigationService.NavigateAsync(nameof(RememberPasswordPage));
+            await _navigationService.NavigateAsync(nameof(RecoverPasswordPage));
         }
 
         private async void LoginAsync()
@@ -101,7 +101,6 @@ namespace ChurchSystem.Prism.ViewModels
             };
 
             Response response = await _apiService.GetTokenAsync(url, "api", "/Account/CreateToken", request);
-            await App.Current.MainPage.DisplayAlert("RESPONSE", response.IsSuccess.ToString() + response.Message.ToString(), "OK");
             if (!response.IsSuccess)
             {
                 IsRunning = false;
@@ -112,22 +111,13 @@ namespace ChurchSystem.Prism.ViewModels
             }
 
             TokenResponse token = (TokenResponse)response.Result;
-            EmailRequest emailRequest = new EmailRequest
-            {
-                Email = Email
-            };
-
-            Response response2 = await _apiService.GetUserByEmail(url, "api", "/Account/GetUserByEmail", "bearer", token.Token, emailRequest);
-            UserResponse userResponse = (UserResponse)response2.Result;
-
-            Settings.User = JsonConvert.SerializeObject(userResponse);
             Settings.Token = JsonConvert.SerializeObject(token);
             Settings.IsLogin = true;
 
             IsRunning = false;
             IsEnabled = true;
 
-            await _navigationService.NavigateAsync("/MainPage");
+            await _navigationService.NavigateAsync("/ChurchMasterDetailPage/NavigationPage/MeetingPage");
             Password = string.Empty;
         }
 

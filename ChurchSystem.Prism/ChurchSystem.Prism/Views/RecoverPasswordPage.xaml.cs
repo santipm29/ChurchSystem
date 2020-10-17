@@ -2,9 +2,9 @@
 
 namespace ChurchSystem.Prism.Views
 {
-    public partial class RememberPasswordPage : ContentPage
+    public partial class RecoverPasswordPage : ContentPage
     {
-        public RememberPasswordPage()
+        public RecoverPasswordPage()
         {
             InitializeComponent();
         }
