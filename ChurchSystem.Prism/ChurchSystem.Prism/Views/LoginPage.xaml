@@ -48,6 +48,9 @@
 
                 </StackLayout>
             </ScrollView>
+            <ActivityIndicator
+            VerticalOptions="CenterAndExpand"
+            IsRunning="{Binding IsRunning}"/>
             <StackLayout VerticalOptions="EndAndExpand">
                 <Button Command="{Binding LoginCommand}" 
                         IsEnabled="{Binding IsEnabled}"

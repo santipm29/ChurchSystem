@@ -113,6 +113,9 @@
 
                 </StackLayout>
             </ScrollView>
+            <ActivityIndicator
+            VerticalOptions="CenterAndExpand"
+            IsRunning="{Binding IsRunning}"/>
             <Button Command="{Binding RegisterCommand}"
                     IsEnabled="{Binding IsEnabled}"
                     Text="{i18n:Translate Register}"

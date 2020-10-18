@@ -6,5 +6,8 @@
              x:Class="ChurchSystem.Prism.Views.MeetingPage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
+    
+    
+    
   
 </ContentPage>

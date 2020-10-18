@@ -89,6 +89,9 @@
                     </inputLayout:SfTextInputLayout>
                 </StackLayout>
             </ScrollView>
+            <ActivityIndicator
+            VerticalOptions="CenterAndExpand"
+            IsRunning="{Binding IsRunning}"/>
             <StackLayout Orientation="Horizontal"
                          VerticalOptions="EndAndExpand">
                 <Button Command="{Binding SaveCommand}"
