@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace ChurchSystem.Prism.Views
 {
@@ -7,6 +8,11 @@ namespace ChurchSystem.Prism.Views
         public ChurchMasterDetailPage()
         {
             InitializeComponent();
+        }
+
+        internal static object GetInstance()
+        {
+            throw new NotImplementedException();
         }
     }
 }

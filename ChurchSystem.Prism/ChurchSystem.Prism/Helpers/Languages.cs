@@ -111,6 +111,45 @@ namespace ChurchSystem.Prism.Helpers
 
         public static string RegisterMessge => Resource.RegisterMessge;
 
+        public static string PictureSource => Resource.PictureSource;
+
+        public static string Cancel => Resource.Cancel;
+
+        public static string FromCamera => Resource.FromCamera;
+
+        public static string FromGallery => Resource.FromGallery;
+
+        public static string NoCameraSupported => Resource.NoCameraSupported;
+
+        public static string NoGallerySupported => Resource.NoGallerySupported;
+
+        public static string RecoverPassword => Resource.RecoverPassword;
+
+        public static string RecoverPasswordMessage => Resource.RecoverPasswordMessage;
+
+        public static string ConfirmNewPassword => Resource.ConfirmNewPassword;
+
+        public static string ConfirmNewPasswordError1 => Resource.ConfirmNewPasswordError1;
+
+        public static string ConfirmNewPasswordError2 => Resource.ConfirmNewPasswordError2;
+
+        public static string ConfirmNewPasswordPlaceHolder => Resource.ConfirmNewPasswordPlaceHolder;
+
+        public static string CurrentPassword => Resource.CurrentPassword;
+
+        public static string CurrentPasswordError => Resource.CurrentPasswordError;
+
+        public static string CurrentPasswordPlaceHolder => Resource.CurrentPasswordPlaceHolder;
+
+        public static string NewPassword => Resource.NewPassword;
+
+        public static string NewPasswordError => Resource.NewPasswordError;
+
+        public static string NewPasswordPlaceHolder => Resource.NewPasswordPlaceHolder;
+
+        public static string Error005 => Resource.Error005;
+
+        public static string ChangePassworrdMessage => Resource.ChangePassworrdMessage;
 
 
     }
