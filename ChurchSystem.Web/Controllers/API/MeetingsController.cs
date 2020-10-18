@@ -29,29 +29,55 @@ namespace ChurchSystem.Web.Controllers.API
             IUserHelper userHelper
         )
         {
+
             _context = context;
             _userHelper = userHelper;
         }
+
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
-        public IActionResult GetMeetings()
+        public async Task<IActionResult> GetMeetings()
         {
-            return Ok(_context.Meetings);
+            string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            User user = await _userHelper.GetUserAsync(email);
+            if (user == null)
+            {
+                return NotFound("Error001");
+            }
+
+            var meetings = _context.Meetings
+                .Include(m => m.Assistances)
+                .ThenInclude(m => m.User)
+                .Where(m => m.Church == user.Church);
+
+            return Ok(meetings);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
-        [Route("Members")]
-        public async Task<IActionResult> Members([FromBody] MemberRequest request)
+        [Route("GetAssistances")]
+        public async Task<IActionResult> GetAssistances()
         {
-            if (!ModelState.IsValid)
+            string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            User user = await _userHelper.GetUserAsync(email);
+            if (user == null)
             {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Bad request",
-                    Result = ModelState
-                });
+                return NotFound("Error001");
             }
+
+            var meetings = _context.Meetings
+                .Include(m => m.Assistances)
+                .Where(m => m.Church == user.Church);
+
+            return Ok(meetings);
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
+        [Route("Members")]
+        public async Task<IActionResult> Members()
+        {
 
             string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             User user = await _userHelper.GetUserAsync(email);
@@ -63,10 +89,55 @@ namespace ChurchSystem.Web.Controllers.API
             List<User> members = await _context.Users
                 .Include(u => u.Church)
                 .Include(u => u.Profession)
-                .Where(u => u.Church.Id == request.ChurchId)
+                .Where(u => u.Church.Id == user.Church.Id)
                 .Where(u => u.UserType == UserType.User)
                 .ToListAsync();
         return Ok(members);
+        }
+
+
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("Create")]
+        public async Task<IActionResult> Create([FromBody] MeetingRequest request)
+        {
+
+            string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            User user = await _userHelper.GetUserAsync(email);
+            if (user == null)
+            {
+                return NotFound("Error001");
+            }
+
+            List<User> members = await _context.Users
+                .Include(u => u.Church)
+                .Include(u => u.Profession)
+                .Where(u => u.Church.Id == user.Church.Id)
+                .Where(u => u.UserType == UserType.User)
+                .ToListAsync();
+
+            var meeting = new Meeting
+            {
+                Church = user.Church,
+                Date = request.Date
+            };
+
+            _context.Meetings.Add(meeting);
+            await _context.SaveChangesAsync();
+
+
+            foreach (var member in members)
+            {
+                _context.Assistances.Add(new Assistance
+                {
+                    Meeting = meeting,
+                    User = member,
+                    IsPresent = false
+                });
+            }
+            await _context.SaveChangesAsync();
+            return Ok(meeting);
         }
     }
 }
