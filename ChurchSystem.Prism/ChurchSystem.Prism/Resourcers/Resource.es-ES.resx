@@ -265,5 +265,29 @@
     <value>La contraseña se cambió con éxito.</value>
   </data>
 
+  <data name="TitleLogin" xml:space="preserve">
+    <value>Inicio sesión</value>
+  </data>
+  <data name="TitleMembers" xml:space="preserve">
+    <value>Miembros</value>
+  </data>
+  <data name="TitleAssistancies" xml:space="preserve">
+    <value>Asistencias</value>
+  </data>
+  <data name="TitleProfile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="TitleMeetings" xml:space="preserve">
+    <value>Reuniones</value>
+  </data>
+  <data name="TitleLogout" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="TitleRegisterUser" xml:space="preserve">
+    <value>Registrar usuario</value>
+  </data>
+  <data name="TitleCreateMeating" xml:space="preserve">
+    <value>Crear reunión</value>
+  </data>
 
 </root>

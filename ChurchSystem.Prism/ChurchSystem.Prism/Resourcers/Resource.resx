@@ -263,5 +263,31 @@
     <value>The password was changed successfully.</value>
   </data>
 
+  <data name="TitleLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="TitleMembers" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="TitleAssistancies" xml:space="preserve">
+    <value>Assistancies</value>
+  </data>
+  <data name="TitleProfile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="TitleMeetings" xml:space="preserve">
+    <value>Meetings</value>
+  </data>
+  <data name="TitleLogout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="TitleRegisterUser" xml:space="preserve">
+    <value>Register User</value>
+  </data>
+  <data name="TitleCreateMeating" xml:space="preserve">
+    <value>Create Meating</value>
+  </data>
+  
+
 
 </root>

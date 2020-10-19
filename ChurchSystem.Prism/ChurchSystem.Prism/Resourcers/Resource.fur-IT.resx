@@ -259,4 +259,29 @@
   <data name="ChangePassworrdMessage" xml:space="preserve">
     <value>La password è stata modificata con successo.</value>
   </data>
+
+  <data name="TitleLogin" xml:space="preserve">
+    <value>Accesso</value>
+  </data>
+  <data name="TitleMembers" xml:space="preserve">
+    <value>Membri</value>
+  </data>
+  <data name="TitleAssistancies" xml:space="preserve">
+    <value>Asistencias</value>
+  </data>
+  <data name="TitleProfile" xml:space="preserve">
+    <value>Assist</value>
+  </data>
+  <data name="TitleMeetings" xml:space="preserve">
+    <value>Riunioni</value>
+  </data>
+  <data name="TitleLogout" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="TitleRegisterUser" xml:space="preserve">
+    <value>Registra utente</value>
+  </data>
+  <data name="TitleCreateMeating" xml:space="preserve">
+    <value>Crea riunione</value>
+  </data>
 </root>

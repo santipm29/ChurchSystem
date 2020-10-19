@@ -1,13 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ChurchSystem.Prism.Views.MeetingPage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
-    
-    
-    
-  
+
+    <StackLayout
+        Padding="10">
+        <ListView
+            BackgroundColor="Transparent"
+            SeparatorVisibility="None"
+            HasUnevenRows="True"
+            ItemsSource="{Binding Meetings}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame
+                            CornerRadius="20"
+                            HasShadow="True"
+                            Margin="0,0,0,5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectMeetingCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid
+                                    Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        FontAttributes="Bold"
+                                        Text="{Binding DateLocal, StringFormat='{0:dd/MM/yyyy}'}"/>
+                                </Grid>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ActivityIndicator
+            VerticalOptions="CenterAndExpand"
+            IsRunning="{Binding IsRunning}"/>
+    </StackLayout>
+
 </ContentPage>

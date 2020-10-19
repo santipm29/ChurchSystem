@@ -151,6 +151,20 @@ namespace ChurchSystem.Prism.Helpers
 
         public static string ChangePassworrdMessage => Resource.ChangePassworrdMessage;
 
+        public static string TitleLogin => Resource.TitleLogin;
 
+        public static string TitleMembers => Resource.TitleMembers;
+
+        public static string TitleAssistancies => Resource.TitleAssistancies;
+
+        public static string TitleProfile => Resource.TitleProfile;
+
+        public static string TitleMeetings => Resource.TitleMeetings;
+
+        public static string TitleLogout => Resource.TitleLogout;
+
+        public static string TitleRegisterUser => Resource.TitleRegisterUser;
+
+        public static string TitleCreateMeating => Resource.TitleCreateMeating;
     }
 }

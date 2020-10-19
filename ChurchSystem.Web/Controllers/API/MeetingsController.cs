@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ChurchSystem.Common.Enums;
+﻿using ChurchSystem.Common.Enums;
 using ChurchSystem.Common.Request;
-using ChurchSystem.Common.Responses;
 using ChurchSystem.Web.Data;
 using ChurchSystem.Web.Data.Entities;
 using ChurchSystem.Web.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ChurchSystem.Web.Controllers.API
 {
@@ -46,9 +42,7 @@ namespace ChurchSystem.Web.Controllers.API
                 return NotFound("Error001");
             }
 
-            var meetings = _context.Meetings
-                .Include(m => m.Assistances)
-                .ThenInclude(m => m.User)
+            IQueryable<Meeting> meetings = _context.Meetings
                 .Where(m => m.Church == user.Church);
 
             return Ok(meetings);
@@ -57,7 +51,7 @@ namespace ChurchSystem.Web.Controllers.API
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("GetAssistances")]
-        public async Task<IActionResult> GetAssistances()
+        public async Task<IActionResult> GetAssistances([FromBody] MeetingRequest request)
         {
             string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             User user = await _userHelper.GetUserAsync(email);
@@ -65,13 +59,24 @@ namespace ChurchSystem.Web.Controllers.API
             {
                 return NotFound("Error001");
             }
-
-            var meetings = _context.Meetings
+            Meeting meeting = await _context.Meetings
                 .Include(m => m.Assistances)
-                .Where(m => m.Church == user.Church);
+                .FirstOrDefaultAsync(m => m.Date == request.Date && m.Church.Id == user.Church.Id);
+            if (meeting == null)
+            {
+                return NotFound();
+            }
+            List<Assistance> assistance = await _context.Assistances
+                .Include(m => m.User)
+                .Where(m => m.Meeting.Id == meeting.Id).ToListAsync();
+            if (assistance == null)
+            {
+                return NotFound();
+            }
 
-            return Ok(meetings);
+            return Ok(assistance);
         }
+
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
@@ -117,7 +122,7 @@ namespace ChurchSystem.Web.Controllers.API
                 .Where(u => u.UserType == UserType.User)
                 .ToListAsync();
 
-            var meeting = new Meeting
+            Meeting meeting = new Meeting
             {
                 Church = user.Church,
                 Date = request.Date
@@ -127,7 +132,7 @@ namespace ChurchSystem.Web.Controllers.API
             await _context.SaveChangesAsync();
 
 
-            foreach (var member in members)
+            foreach (User member in members)
             {
                 _context.Assistances.Add(new Assistance
                 {

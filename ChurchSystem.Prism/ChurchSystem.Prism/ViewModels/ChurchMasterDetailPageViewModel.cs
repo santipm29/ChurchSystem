@@ -1,11 +1,11 @@
-﻿using ChurchSystem.Common.Helpers;
+﻿using ChurchSystem.Common.Enums;
+using ChurchSystem.Common.Helpers;
 using ChurchSystem.Common.Models;
 using ChurchSystem.Common.Responses;
+using ChurchSystem.Prism.Helpers;
 using ChurchSystem.Prism.ItemViewModels;
 using ChurchSystem.Prism.Views;
 using Newtonsoft.Json;
-using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -24,8 +24,8 @@ namespace ChurchSystem.Prism.ViewModels
         {
             _instance = this;
             _navigationService = navigationService;
-            LoadMenus();
             LoadUser();
+            LoadMenus();
         }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
         public UserResponse User
@@ -47,33 +47,57 @@ namespace ChurchSystem.Prism.ViewModels
         }
         private void LoadMenus()
         {
+            
             List<Menu> menus = new List<Menu>
             {
                 new Menu
                 {
                     Icon = "ic_person",
                     PageName = $"{nameof(ModifyUserPage)}",
-                    Title = "Profile"
+                    Title = Languages.TitleProfile
+                },
+                 new Menu
+                {
+                    Icon = "ic_event_note",
+                    PageName = $"{nameof(MeetingPage)}",
+                    Title = Languages.TitleMeetings
+                },
+                 new Menu
+                {
+                    Icon = "ic_meeting",
+                    PageName = $"{nameof(AssistancePage)}",
+                    Title = Languages.TitleAssistancies
                 },
                 new Menu
                 {
                     Icon = "ic_members",
                     PageName = $"{nameof(MembersPage)}",
-                    Title = "Members"
-                },
-                new Menu
-                {
-                    Icon = "ic_person_plus",
-                    PageName = $"{nameof(RegisterPage)}",
-                    Title = "Register User"
+                    Title = Languages.TitleMembers
                 },
                 new Menu
                 {
                     Icon = "ic_exit_to_app",
                     PageName = $"{nameof(LoginPage)}",
-                    Title = Settings.IsLogin ? "Logout" : "Login"
+                    Title = Settings.IsLogin ? Languages.TitleLogout : Languages.TitleLogin
                 }
             };
+
+            if (User.UserType == UserType.Teacher)
+            {
+                menus.Add(new Menu
+                {
+                    Icon = "ic_person_plus",
+                    PageName = $"{nameof(RegisterPage)}",
+                    Title = Languages.TitleRegisterUser
+                });
+
+                menus.Add(new Menu
+                {
+                    Icon = "ic_calendar",
+                    PageName = $"{nameof(CreateMeeting)}",
+                    Title = Languages.TitleCreateMeating
+                });
+            }
 
             Menus = new ObservableCollection<MenuItemViewModel>(
                 menus.Select(m => new MenuItemViewModel(_navigationService)

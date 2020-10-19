@@ -52,6 +52,8 @@ namespace ChurchSystem.Prism
             containerRegistry.RegisterForNavigation<MeetingPage, MeetingPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>();
+            containerRegistry.RegisterForNavigation<AssistancePage, AssistancePageViewModel>();
+            containerRegistry.RegisterForNavigation<CreateMeeting, CreateMeetingViewModel>();
         }
     }
 }

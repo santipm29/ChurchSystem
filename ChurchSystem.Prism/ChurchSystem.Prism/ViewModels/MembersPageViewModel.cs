@@ -1,17 +1,12 @@
 ﻿using ChurchSystem.Common.Entities;
 using ChurchSystem.Common.Helpers;
-using ChurchSystem.Common.Request;
 using ChurchSystem.Common.Responses;
 using ChurchSystem.Common.Services;
 using ChurchSystem.Prism.Helpers;
 using Newtonsoft.Json;
-using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Xamarin.Essentials;
 
 namespace ChurchSystem.Prism.ViewModels
@@ -23,13 +18,12 @@ namespace ChurchSystem.Prism.ViewModels
         private UserResponse _user;
         private bool _isRunning;
         private bool _isEnabled;
-        private string _search;
         private ObservableCollection<User> _members;
         public MembersPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "Members";
+            Title = Languages.TitleMembers;
             IsEnabled = true;
             TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
             User = token.User;

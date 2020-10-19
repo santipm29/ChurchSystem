@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ChurchSystem.Prism.Views.AssistancePage"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             BackgroundColor="{StaticResource ColorBackground}"
+             Title="{Binding Title}">
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All"
+                     Padding="5">
+            <ScrollView>
+                <StackLayout Spacing="0"  VerticalOptions="Start">
+                    <DatePicker MinimumDate ="{Binding MiniumDate}" Date="{Binding Date}"/>
+                    <Button Command="{Binding GetAssistanciesCommand}"
+                    IsEnabled="{Binding IsEnabled}"
+                    Text="Get Assistancies"
+                    VerticalOptions="EndAndExpand"/>
+                </StackLayout>
+        </ScrollView>
+            <ActivityIndicator
+            VerticalOptions="CenterAndExpand"
+            IsRunning="{Binding IsRunning}"/>
+            <Button Command="{Binding UpdateAssistanciesCommand}"
+                    IsEnabled="{Binding IsEnabled}"
+                    Text="Update Assistancies"
+                    VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

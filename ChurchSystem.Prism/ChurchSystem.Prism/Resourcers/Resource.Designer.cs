@@ -662,5 +662,77 @@ namespace ChurchSystem.Prism.Resourcers {
                 return ResourceManager.GetString("RegisterMessge", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assistancies.
+        /// </summary>
+        public static string TitleAssistancies {
+            get {
+                return ResourceManager.GetString("TitleAssistancies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Meating.
+        /// </summary>
+        public static string TitleCreateMeating {
+            get {
+                return ResourceManager.GetString("TitleCreateMeating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string TitleLogin {
+            get {
+                return ResourceManager.GetString("TitleLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string TitleLogout {
+            get {
+                return ResourceManager.GetString("TitleLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meetings.
+        /// </summary>
+        public static string TitleMeetings {
+            get {
+                return ResourceManager.GetString("TitleMeetings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members.
+        /// </summary>
+        public static string TitleMembers {
+            get {
+                return ResourceManager.GetString("TitleMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string TitleProfile {
+            get {
+                return ResourceManager.GetString("TitleProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register User.
+        /// </summary>
+        public static string TitleRegisterUser {
+            get {
+                return ResourceManager.GetString("TitleRegisterUser", resourceCulture);
+            }
+        }
     }
 }
